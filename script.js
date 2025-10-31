@@ -3,6 +3,12 @@ const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
 const gameOverElement = document.getElementById('gameOver');
 
+// 🔊 Suara
+const makanSound = new Audio('makan.mp3');
+const nabrakSound = new Audio('nabrak.mp3');
+const bgSound = new Audio('Background.mp3');
+bgSound.loop = true;
+
 const gridSize = 20;
 const gridWidth = canvas.width / gridSize;
 const gridHeight = canvas.height / gridSize;
@@ -14,7 +20,8 @@ let score = 0;
 let gameRunning = true;
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // bersihin tanpa warna hitam
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "limegreen";
     snake.forEach(segment => {
@@ -55,6 +62,8 @@ function update() {
         score += 10;
         scoreElement.textContent = score;
         generateFood();
+        makanSound.currentTime = 0;
+        makanSound.play();
     } else {
         snake.pop();
     }
@@ -70,6 +79,10 @@ function generateFood() {
 function endGame() {
     gameRunning = false;
     gameOverElement.style.display = 'block';
+
+    bgSound.pause();
+    nabrakSound.currentTime = 0;
+    nabrakSound.play();
 }
 
 function resetGame() {
@@ -80,6 +93,9 @@ function resetGame() {
     gameRunning = true;
     gameOverElement.style.display = 'none';
     generateFood();
+
+    bgSound.currentTime = 0;
+    bgSound.play();
 }
 
 function gameLoop() {
@@ -96,4 +112,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 resetGame();
-setInterval(gameLoop, 150);
+setInterval(gameLoop, 150);

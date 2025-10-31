@@ -29,10 +29,10 @@ h1 {
 }
 
 canvas {
+    background-color: black;
     display: block;
     margin: 0 auto;
     border-radius: 8px;
-    /* background-color dihapus */
 }
 
 #gameOver {
@@ -55,5 +55,5 @@ button {
 }
 
 button:hover {
-    background-color: #6495ED;
+    background-color: #6495ED;
 }
